@@ -1,0 +1,21 @@
+# 可执行文件
+*.exe
+*.out
+
+# 构建目录
+cmake-build-*/
+build/
+out/
+
+# IDE文件
+.vscode/
+
+# CMake生成文件
+CMakeCache.txt
+CMakeFiles/
+Makefile
+
+# 编译中间文件
+*.o
+*.obj
+*.pch
