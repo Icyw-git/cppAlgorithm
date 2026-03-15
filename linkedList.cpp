@@ -90,14 +90,18 @@ void Clink::remove(int val)
 }
 void Clink::reverse()
 {
-    Node* p=head;
-    Node *q=head->next;
-    head->next=nullptr; //将头节点的指针域指向空,表示链表结束,然后从第二个节点开始遍历
-    while (q !=nullptr)
+    Node *p=head->next; //从头节点的下一个节点开始遍历
+    if (p==nullptr)
     {
-        inserthead(q->data); //利用头插法倒序
-        q=q->next;
-
+        return;
+    }
+    head->next=nullptr;
+    while (p!=nullptr)
+    {
+        Node *q=p->next; //将当前节点的下一个节点保存到q中
+        p->next=head->next; //将当前节点的指针域指向头节点的下一个节点
+        head->next=p; //将头节点的指针域指向当前节点
+        p=q; //将当前节点指向下一个节点
 
     }
 
