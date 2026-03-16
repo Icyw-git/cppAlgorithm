@@ -33,6 +33,8 @@
 
 #include <iostream>
 #include <cstring>
+#include <sstream>
+#include <string>
 using namespace std;
 class Array
 {
@@ -200,30 +202,93 @@ Array Array::result(const Array &a,const Array &b)
 
 }
 
+void parse_line_to_array(const string& line, Array& arr)
+{
+    if (line.empty()) return;
 
+    stringstream ss(line);
+    int val;
+    while (ss >> val)
+    {
+        arr.push_back(val);
+    }
+}
 
 int main()
 {
-    int n;
-    int m;
-    cin>>n>>m;
-    Array a(n);
-    Array b(m);
-    for (int i=0;i<n;i++)
-    {   int val;
-        cin>>val;
-        a.push_back(val);
-    }
-    for (int i=0;i<m;i++)
-    {
-        int val;
-        cin>>val;
-        b.push_back(val);
-    }
-    // a.show();
-    // b.show();
+    int n, m;
+    cin >> n >> m;
 
-    Array c=a.result(a,b);
+    // 清除输入缓冲区的换行符
+    cin.ignore();
+
+    Array a, b;
+    string line;
+
+    // 处理数组A
+    if (n > 0)
+    {
+        getline(cin, line);
+        parse_line_to_array(line, a);
+    }
+    else
+    {
+        // n=0，可能有一行空行，需要读取并忽略
+        getline(cin, line);
+        // 检查这行是否有内容，如果有，说明输入格式是：空行或实际是B的第一行
+        // 如果是B的第一行，我们需要解析它到B
+        if (!line.empty())
+        {
+            // 这行可能是B的数据，尝试解析
+            stringstream test_ss(line);
+            int test_val;
+            bool has_numbers = false;
+            while (test_ss >> test_val)
+            {
+                has_numbers = true;
+                b.push_back(test_val);
+            }
+
+            if (!has_numbers)
+            {
+                // 确实是空行，继续读取下一行（B的数据）
+                if (m > 0)
+                {
+                    getline(cin, line);
+                    parse_line_to_array(line, b);
+                }
+            }
+            // 如果has_numbers为true，说明我们已经把B的数据读取了
+        }
+        else
+        {
+            // 是空行，如果m>0，继续读取B的数据
+            if (m > 0)
+            {
+                getline(cin, line);
+                parse_line_to_array(line, b);
+            }
+        }
+    }
+
+    // 处理数组B（如果还没有处理）
+    if (n > 0 && m > 0)
+    {
+        getline(cin, line);
+        parse_line_to_array(line, b);
+    }
+    else if (n > 0 && m == 0)
+    {
+        // n>0, m=0，B是空行
+        getline(cin, line); // 读取并忽略空行
+    }
+    // 其他情况在前面已经处理
+
+    // 计算对称差集
+    Array c = a.result(a, b);
+
+    // 输出结果
     c.show();
 
+    return 0;
 }
