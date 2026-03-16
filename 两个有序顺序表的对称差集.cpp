@@ -43,7 +43,13 @@ private:
 public:
     Array(int size = 10);        // 构造函数
     ~Array();                    // 析构函数
+    void push_back(int x);       // 末尾增加元素
+    void pop_back();             // 末尾删除元素
+    void insert(int loc, int x); // 按位置插入元素
+    void erase(int val);         // 按值删除元素
+    int find(int x);             // 查找元素
     void show();
+    Array result(const Array &a,const Array &b);
 
 private:
     void expand(int new_capacity) // 自动扩容函数
@@ -55,7 +61,6 @@ private:
         capacity = new_capacity;
     }
 };
-
 
 Array::Array(int size)
 {
@@ -70,3 +75,155 @@ Array::~Array()
     p = nullptr; //
 }
 
+void Array::push_back(int x)
+{
+    if (size == capacity)
+    {
+        expand(2 * size);
+    }
+    p[size] = x;
+    size += 1;
+}
+
+void Array::pop_back()
+{
+    if (size == 0)
+    {
+        cout << "Array is empty" << endl;
+        return;
+    }
+    size--;
+}
+
+void Array::insert(int loc, int x)
+{
+    if (size == capacity)
+    {
+        expand(2 * size);
+    }
+    for (int i = size - 1; i > loc; i--)
+    {
+        p[i + 1] = p[i];
+    }
+    p[loc] = x;
+    size++;
+}
+
+void Array::erase(int val)
+{
+    if (size == 0)
+    {
+        cout << "Array is empty" << endl;
+        return;
+    }
+    for (int i = val; i < size; i++)
+    {
+        p[i - 1] = p[i];
+    }
+    size--;
+}
+
+int Array::find(int x)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (p[i] == x)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void Array::show()
+{
+    for (int i = 0; i < size; i++)
+    {
+        cout << p[i] <<" ";
+    }
+    // cout<<size<<endl;
+}
+
+Array Array::result(const Array &a,const Array &b)
+{
+    Array c(10);
+    int *pa=a.p;
+    int *pb=b.p;
+    int i=0;
+    int j=0;
+
+
+    while (i<a.size && j<b.size)
+    {
+        if (pa[i]==pb[j])
+        {
+            int val=pa[i];
+            while (i<a.size && pa[i]==val) i++;
+            while (j<b.size && pb[j]==val) j++;
+
+        }
+        else if (pa[i]<pb[j])
+        {
+            int val=pa[i];
+            c.push_back(val);
+            while (i<a.size && pa[i]==val)
+            {
+                i++;
+            }
+        }
+        else
+        {
+            int val=pb[j];
+            c.push_back(val);
+            while (j<b.size && pb[j]==val)
+            {
+                j++;
+            }
+        }
+
+
+    }
+
+    while (i<a.size)
+    {
+        int val =pa[i];
+        c.push_back(val);
+        while (i<a.size && pa[i]==val) i++;
+    }
+    while (j<b.size)
+    {
+        int val =pb[j];
+        c.push_back(val);
+        while (j<b.size && pb[j]==val) j++;
+    }
+    return c;
+
+}
+
+
+
+int main()
+{
+    int n;
+    int m;
+    cin>>n>>m;
+    Array a(n);
+    Array b(m);
+    for (int i=0;i<n;i++)
+    {   int val;
+        cin>>val;
+        a.push_back(val);
+    }
+    for (int i=0;i<m;i++)
+    {
+        int val;
+        cin>>val;
+        b.push_back(val);
+    }
+    // a.show();
+    // b.show();
+
+    Array c=a.result(a,b);
+    c.show();
+
+}
