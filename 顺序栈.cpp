@@ -13,7 +13,10 @@ private:
     void doublespace()
     {
         int *tem=p;
-        p=new int [2*maxsize];
+        maxsize*=2;
+
+        p=new int [maxsize];
+
         for(int i=0;i<maxsize;i++)
         {
             p[i]=tem[i];
@@ -30,8 +33,54 @@ public:
         top_p=-1;
 
     }
-    ~stack();
+    ~stack()
+    {
+        delete []p;
+        p=nullptr;
+    }
     void pop();
     void top();
+    void push(int val);
+    bool isempty();
+
+
 
 };
+
+void stack::push(int val)
+{
+    if (top_p==maxsize-1)
+    {
+        doublespace();
+
+    }
+    top_p++;
+    p[top_p]=val;
+
+}
+
+void stack::pop()
+{
+    int val=p[top_p];
+    top_p--;
+    cout<<val<<endl;
+
+}
+
+void stack::top()
+{
+    cout<<p[top_p]<<endl;
+}
+
+int main()
+{
+    stack a(10);
+    for (int i=0;i<10;i++)
+    {
+        a.push(i);
+    }
+    a.pop();
+    a.top();
+
+
+}
