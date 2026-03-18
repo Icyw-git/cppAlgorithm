@@ -4,83 +4,116 @@
 
 #include<iostream>
 using namespace std;
+template <class elemType>
 class stack
 {
-private:
-    int *p;
-    int maxsize;
-    int top_p;
-    void doublespace()
-    {
-        int *tem=p;
-        maxsize*=2;
-
-        p=new int [maxsize];
-
-        for(int i=0;i<maxsize;i++)
-        {
-            p[i]=tem[i];
-
-        }
-        delete []tem;
-
-    }
 public:
-    stack(int size)
-    {
-        maxsize = size;
-        p=new int[maxsize];
-        top_p=-1;
-
-    }
-    ~stack()
-    {
-        delete []p;
-        p=nullptr;
-    }
-    void pop();
-    void top();
-    void push(int val);
-    bool isempty();
-
+    virtual void push(elemType val)=0;
+    virtual elemType pop()=0;
+    virtual elemType top()=0;
+    virtual bool empty()=0;
+    virtual ~stack() {}
 
 
 };
 
-void stack::push(int val)
+template <class elemType>
+class seqstack:public stack<elemType>
+{
+private:
+    elemType *data;
+    elemType top_p;
+    int maxsize;
+    void doublespace()
+    {
+        elemType *tem=data;
+        data=new elemType[2*maxsize];
+        for (int i=0;i<maxsize;i++)
+        {
+            data[i]=tem[i];
+
+        }
+        maxsize*=2;
+        delete []tem;
+
+    }
+public:
+    seqstack(int initsize=10)
+    {
+        maxsize=initsize;
+        data=new elemType[maxsize];
+        top_p=-1;
+
+    }
+    void push(elemType val);
+    elemType pop();
+    elemType top();
+    bool empty();
+    ~seqstack()
+    {
+        delete []data;
+        data=nullptr;
+
+    }
+};
+
+template <class elemType>
+void seqstack<elemType>::push(elemType val)
 {
     if (top_p==maxsize-1)
     {
         doublespace();
-
     }
     top_p++;
-    p[top_p]=val;
-
+    data[top_p]=val;
 }
 
-void stack::pop()
+template <class elemType>
+elemType seqstack<elemType>::pop()
 {
-    int val=p[top_p];
+    elemType val=data[top_p];
     top_p--;
-    cout<<val<<endl;
-
+    return val;
 }
 
-void stack::top()
+template <class elemType>
+elemType seqstack<elemType>::top()
 {
-    cout<<p[top_p]<<endl;
+    return data[top_p];
+}
+
+template <class elemType>
+bool seqstack<elemType>::empty()
+{
+    return (top_p==-1);
 }
 
 int main()
 {
-    stack a(10);
-    for (int i=0;i<10;i++)
+    seqstack<char> stack;
+    int n;
+    cin>>n;
+    char a[n];
+    for (int i=0;i<n;i++)
     {
-        a.push(i);
+        cin>>a[i];
     }
-    a.pop();
-    a.top();
+    for (int i=0;i<n;i++)
+    {
+        stack.push(a[i]);
+    }
 
-
+    int i=0;
+    while (!stack.empty())
+    {
+        if (stack.pop()==a[i])
+        {
+            i++;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    return 1;
 }
