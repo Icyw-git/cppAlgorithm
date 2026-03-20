@@ -33,9 +33,9 @@ public:
         head->next=nullptr;
         while (p !=nullptr)
         {
-            q=p->next;
-            delete p;
-            p=q;
+            delete q;
+            q=p;
+            p=p->next;
         }
         length=0;
     }
