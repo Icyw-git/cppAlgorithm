@@ -117,3 +117,66 @@ int main()
     }
     return 1;
 }
+
+template <class elemType>
+class linkedstack:public stack<elemType>
+{
+private:
+    struct Node
+    {
+        elemType data;
+        Node *next;
+        Node()
+        {
+            data=0;
+            next=nullptr;
+        }
+    };
+    Node *top_p;
+
+public:
+    linkedstack()
+    {
+        top_p=nullptr;
+    }
+    ~linkedstack()
+    {
+
+        Node *p=top_p;
+        while (p!=nullptr)
+        {
+            p=p->next;
+            delete top_p;
+            top_p=p;
+        }
+    }
+
+    void push(elemType val)
+    {
+        elemType *tem=new Node(val);
+        tem->next=top_p;
+        top_p=tem;
+
+    }
+
+    elemType pop()
+    {
+        Node *p=top_p->next;
+        elemType val=top_p->data;
+        delete top_p;
+        top_p=p;
+        return val;
+    }
+
+    elemType top()
+    {
+        return top_p->data;
+    }
+
+    bool empty()
+    {
+        return (top_p==nullptr);
+
+    }
+
+};
