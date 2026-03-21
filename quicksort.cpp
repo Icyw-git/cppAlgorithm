@@ -91,6 +91,7 @@ public:
     }
 };
 
+
 template <class elemType>
 void seqstack<elemType>::push(elemType val)
 {
