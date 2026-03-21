@@ -97,7 +97,8 @@ bool Ispaired(char c[],int n)
         case '{':
         case'(': s.push(c[i]);
             break;
-        case ']': if (s.empty() || s.pop() != '[') //当遇到右括号时，首先检查栈是否为空，如果为空则说明没有与之匹配的左括号，返回false；如果不为空，则弹出栈顶元素并检查是否与当前右括号匹配，如果不匹配则说明括号不配对，
+        case ']': if (s.empty() || s.pop() != '[')
+                //当遇到右括号时，首先检查栈是否为空，如果为空则说明没有与之匹配的左括号，返回false；如果不为空，则弹出栈顶元素并检查是否与当前右括号匹配，如果不匹配则说明括号不配对，
             return false;
             break;
         case'}':if (s.empty() || s.pop() != '{')
