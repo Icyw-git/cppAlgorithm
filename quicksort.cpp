@@ -155,6 +155,83 @@ void quicksort1(int arr[],int left,int right)
 
 }
 
+
+int divide1(int arr[],int left,int right);
+
+void quickersort(int arr[],int left,int right)
+{
+    if (left>=right)
+    {
+        return;
+    }
+    int mid=divide1(arr,left,right);
+    quickersort(arr,left,mid-1);
+    quickersort(arr,mid+1,right);
+
+}
+
+int divide1(int arr[],int left,int right) //挖坑填数法
+{
+    int pivot=arr[left];
+    while (left<right)
+    {
+        while (left <right &&arr[right]>=pivot)
+        {
+            right--;
+        }
+        if (left<right)
+        {
+            arr[left]=arr[right];
+            left++;
+
+        }
+
+        while (left<right &&arr[left]<=pivot)
+        {
+            left++;
+        }
+        if (left<right)
+        {
+            arr[right]=arr[left];
+            right--;
+        }
+    }
+    arr[left]=pivot;
+    return left;
+
+}
+
+void quicksort2(int arr[],int left,int right)
+{
+    seqstack<int> sl;
+    seqstack<int> sr;
+    sl.push(left);
+    sr.push(right);
+    while (!sl.empty() &&!sr.empty())
+    {
+        left=sl.pop();
+        right=sr.pop();
+        if (left>=right)
+        {
+            continue;
+        }
+        int mid=divide1(arr,left,right);
+        if (right-mid-1>0)
+        {
+            sr.push(right);
+            sl.push(mid+1);
+
+        }
+        if (mid-1-left>0)
+        {
+            sr.push(mid-1);
+            sl.push(left);
+
+        }
+    }
+
+}
+
 int main()
 {
     int n;
@@ -169,12 +246,14 @@ int main()
         cout<<arr[i]<<" ";
     }
     cout<<endl;
-    quicksort1(arr,0,n-1);
+    quicksort2(arr,0,n-1);
     for (int i=0;i<n;i++)
     {
         cout<<arr[i]<<' ';
     }
     cout<<endl;
+
+
 
 
 
