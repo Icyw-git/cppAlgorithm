@@ -60,7 +60,8 @@ public:
     }
 };
 
-void print(int num)
+void print(int num) //利用栈的性质消除递归
+
 {
     stack<int> a(10);
     while (num !=0)
@@ -75,15 +76,19 @@ void print(int num)
 
 }
 
+bool isoperator(char c)
+{
+    return c=='+'||c=='-'||c=='*'||c=='/';
+}
+
 void transfer(char a[],int n)
 {
-    stack<int> b(n);
     stack<char> c(n);
     for (int i=0;i<n;i++)
     {
         if (isdigit(a[i]))
         {
-            b.push(a[i]);
+            cout<<a[i]<<" ";
         }
         else if (a[i]=='(')
         {
@@ -91,13 +96,16 @@ void transfer(char a[],int n)
         }
         else if (a[i]==')')
         {
-            while (b.top()!='(')
+            while (c.top()!='(' && !c.isEmpty())
             {
-                cout<<b.pop()<<' ';
+                cout<<c.pop()<<' ';
             }
-            cout<<b.pop()<<' ';
+            cout<<c.pop()<<' ';
         }
-        else if (a[i]=='*'){}
+        else if (isoperator(a[i]))
+        {
+            while ()
+        }
     }
 }
 
