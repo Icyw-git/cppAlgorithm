@@ -104,13 +104,50 @@ void transfer(char a[],int n)
         }
         else if (isoperator(a[i]))
         {
-            while ()
+            if (a[i]=='+')
+            {
+                while (c.top()=='*'||c.top()=='/'||c.top()=='-')
+                {
+                    cout<<c.pop()<<' ';
+
+                }
+                c.push(a[i]);
+            }
+            else if (a[i]=='-')
+            {
+                while (c.top()=='*'||c.top()=='/'||c.top()=='+')
+                {
+                    cout<<c.pop()<<' ';
+
+                }
+                c.push(a[i]);
+
+            }
+            else
+            {
+                while (c.top()=='*'||c.top()=='/')
+                {
+                    cout<<c.pop()<<' ';
+
+                }
+                c.push(a[i]);
+
+            }
+
         }
     }
+    while (!c.isEmpty())
+    {
+        cout<<c.pop()<<' ';
+    }
 }
+
+
 
 int main()
 {
     print(123456778);
+    char a[9]="1+2*3-4";
+    transfer(a,9);
 
 }
