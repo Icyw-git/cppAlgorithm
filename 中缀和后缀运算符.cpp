@@ -97,7 +97,7 @@ void transfer(char a[],int n)
             }
             cout<<b.pop()<<' ';
         }
-        else if (a[i]=='*')
+        else if (a[i]=='*'){}
     }
 }
 
