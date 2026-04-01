@@ -90,12 +90,12 @@ void train(int n,int a[],int b[])
     int i=0,j=0;
     while (j<n)
     {
-        if (!c.empty() && c.top()==b[j])
+        if (!c.empty() && c.top()==b[j]) //如果栈顶元素和b[j]相等,说明可以出栈
         {
             c.pop();
-            j++;
+            j++; //出栈后j++ 继续比较下一个元素
         }
-        else if (i<n)
+        else if (i<n) //如果a[i]还没有入栈,说明可以入栈
         {
             c.push(a[i]);
             i++;
@@ -103,12 +103,12 @@ void train(int n,int a[],int b[])
         }
         else
         {
-            cout<<"NO"<<endl;
+            cout<<"NO"<<endl; //如果a[i]已经全部入栈,但是b[j]还没有全部出栈,说明无法完成出栈操作,返回NO
             return;
         }
     }
 
-    if (c.empty())
+    if (c.empty()) //如果栈已经空了,说明所有元素都成功出栈,返回YES
     {
         cout<<"YES"<<endl;
     }
