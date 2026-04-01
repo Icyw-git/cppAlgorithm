@@ -142,6 +142,45 @@ void transfer(char a[],int n)
     }
 }
 
+int calculate(char a[],int n)
+{
+    stack<int> b(n);
+    for (int i=0;i<n;i++)
+    {
+        if (isdigit(a[i]))
+        {
+            b.push(a[i]-'0'); //将字符转换为整数
+
+        }
+        else if (isoperator(a[i]))
+        {
+            int right=b.pop();
+            int left=b.pop();
+            if (a[i]=='+')
+            {
+                b.push(left+right);
+            }
+            else if (a[i]=='-')
+            {
+                b.push(left-right);
+            }
+            else if (a[i]=='*')
+            {
+                b.push(left*right);
+            }
+            else if (a[i]=='/')
+            {
+                b.push(left/right);
+            }
+        }
+
+
+
+
+    }
+    return b.pop();
+}
+
 
 
 int main()
@@ -149,5 +188,7 @@ int main()
     print(123456778);
     char a[9]="1+2*3-4";
     transfer(a,9);
+    char b[15]="1 2 3 * + 4 -";
+    cout<<calculate(b,15)<<endl;
 
 }
