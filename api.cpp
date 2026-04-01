@@ -105,17 +105,17 @@ void api(int id,char c,int n,int a[])
     int target=id;
     for (int i=0;i<n;i++)
     {
-        if (b.gethead()<i-9 && !b.isEmpty())
+        if (b.gethead()<i-9 && !b.isEmpty()) //如果队头元素小于i-9说明队头元素已经不在窗口内了 需要出队
         {
             b.dequeue();
         }
-        if (a[i]!=target)
+        if (a[i]!=target) //如果当前元素不等于目标值 说明不需要入队 直接输出0
         {
             cout<<0<<' ';
         }
         else
         {
-            if (b.getsize()<maxsize)
+            if (b.getsize()<maxsize) //如果当前窗口内的元素个数小于最大窗口大小 说明可以入队
             {
                 b.enqueue(i);
                 cout<<1<<' ';
