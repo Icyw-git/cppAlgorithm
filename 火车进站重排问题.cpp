@@ -106,21 +106,21 @@ void arrange(int in[],int n,int k)
         {
             return ;
         }
-        checkBuffer(buffer,k,last);
+        checkBuffer(buffer,k,last); //检查侧轨buffer中是否有车厢可以出轨，如果有则出轨，并更新last为最后一个出轨的车厢编号
     }
 }
 
 bool putBuffer(linkqueue<int> *buffer,int k,int in)
 {
-    int avail=-1;
-    int max=0;
+    int avail=-1; //候选的侧轨编号，初始值为-1表示没有可用的侧轨
+    int max=0; //候选侧轨中最后一个车厢的编号，初始值为0表示没有车厢
     for (int i=0;i<k;i++)
     {
-        if (buffer[k].isEmpty())
+        if (buffer[k].isEmpty()) //如果侧轨buffer[k]为空，则可以将车厢in放入该侧轨中，更新avail为k
         {
             avail=k;
         }
-        if (buffer[k].getlast()<in &&buffer[k].getlast()>max )
+        if (buffer[k].getlast()<in &&buffer[k].getlast()>max ) //如果侧轨buffer[k]不为空，并且该侧轨中最后一个车厢的编号小于in，并且大于max，则可以将车厢in放入该侧轨中，更新avail为k，更新max为该侧轨中最后一个车厢的编号
         {
             avail=k;
             max=buffer[k].getlast();
@@ -129,7 +129,7 @@ bool putBuffer(linkqueue<int> *buffer,int k,int in)
 
     }
 
-    if (avail!=-1)
+    if (avail!=-1) //如果找到一个可用的侧轨，则将车厢in放入该侧轨中，并返回true
     {
         cout<<in<<"进入缓冲区"<<avail<<endl;
         return true;
@@ -145,18 +145,18 @@ bool putBuffer(linkqueue<int> *buffer,int k,int in)
 
 void checkBuffer(linkqueue<int> *buffer,int k,int &last)
 {
-    int flag=true;
+    int flag=true; //标志变量，表示是否有车厢可以出轨，初始值为true表示有车厢可以出轨
     while (flag)
     {
-        flag=false;
-        for (int j=0;j<k;j++)
+        flag=false; //将flag置为false，表示暂时没有车厢可以出轨，如果在下面的循环中找到一个车厢可以出轨，则将flag置为true，继续检查是否还有车厢可以出轨
+        for (int j=0;j<k;j++) //检查每条侧轨buffer[j]中是否有车厢可以出轨，如果有则出轨，并更新last为最后一个出轨的车厢编号
         {
             if (buffer[k].gethead()==last+1)
             {
                 cout<<buffer[k].dequeue()<<"出缓冲区"<<j<<endl;
                 last++;
                 flag=true;
-                break;
+                break; //如果找到一个车厢可以出轨，则跳出循环，继续检查是否还有车厢可以出轨
 
             }
         }
