@@ -97,9 +97,6 @@ int main()
     }
     l.show();
     cout<<endl;
-
-
-
     l.rotate(l,k);
 }
 
