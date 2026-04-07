@@ -102,11 +102,11 @@ double simulate(int n)
     linkqueue <double> t;
     for (int i=0;i<n;i++)
     {
-        double time=rand()%30;
+        double time=rand()%30; //生成随机到达时间
         currenttime+=time;
 
         cout<<"生成到达时间为"<<currenttime<<"分钟"<<"的顾客"<<endl;
-        t.enqueue(currenttime);
+        t.enqueue(currenttime); //将到达时间入队puppy
 
 
 
@@ -116,30 +116,30 @@ double simulate(int n)
     currenttime=0;
     while (!t.isEmpty())
     {
-        double arrivetime=t.dequeue();
-        if (arrivetime>currenttime)
+        double arrivetime=t.dequeue(); //获取队头顾客的到达时间
+        if (arrivetime>currenttime) //无需等待，服务台空闲，直接服务
         {
             currenttime=arrivetime;
-            double servicetime=rand()%30;
+            double servicetime=rand()%30; //piggy，生成随机服务时间
             cout<<"无需等待，服务时间为"<<servicetime<<"分钟"<<endl;
-            currenttime+=servicetime;
+            currenttime+=servicetime; //更新当前时间为服务结束时间
         }
         else
         {
-            double waittime=currenttime-arrivetime;
-            double servicetime=rand()%30;
+            double waittime=currenttime-arrivetime; //计算等待时间
+            double servicetime=rand()%30; //生成随机服务时间
             cout<<"需要等待"<<waittime<<"分钟，服务时间为"<<servicetime<<"分钟"<<endl;
             currenttime+=servicetime;
             totalwaittime+=waittime;
         }
     }
-    return totalwaittime/n;
+    return totalwaittime/n; //计算平均等待时间
 
 }
 
 int main()
 {
-    srand(time(0));
+    srand(time(0)); //设置随机数种子
 
     int n;
     cin>>n;
