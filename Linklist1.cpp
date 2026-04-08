@@ -231,6 +231,8 @@ public:
     }
 };
 
+
+
 int main()
 {
     linklist <int> a;
