@@ -137,6 +137,8 @@ double simulate(int n)
 
 }
 
+
+
 int main()
 {
     srand(time(0)); //设置随机数种子
