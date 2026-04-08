@@ -56,6 +56,8 @@ public:
 
     }
 
+
+
     void rotate(linklist<int> &l,int k )
     {
         Node *p=l.head;
