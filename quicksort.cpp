@@ -1,5 +1,6 @@
 //快速排序的递归实现
 #include<iostream>
+#include <vector>
 using namespace std;
 int divide(int arr[],int left,int right,int &pivot);
 
@@ -230,6 +231,34 @@ void quicksort2(int arr[],int left,int right)
         }
     }
 
+}
+
+
+
+//移除元素
+int removeElement(vector<int> &nums, int val)
+{
+    if (nums.empty()) //如果数组为空 直接返回0表示没有元素需要移除
+    {
+        return 0;
+    }
+    int *p = nums.data();
+    int *q = p + nums.size() - 1;
+    while (p <= q)
+    {
+
+        if (*p == val) //数组左边是剩余的元素
+
+        {
+            *p = *q;
+            q--;
+        }
+        else
+        {
+            p++;
+        }
+    }
+    return p - nums.data(); //返回需要移除的个数
 }
 
 int main()
