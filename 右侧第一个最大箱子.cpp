@@ -85,7 +85,7 @@ bool seqstack<elemType>::empty()
     return (top_p==-1);
 }
 
-void getmax(int a[],int n)
+void getmax(int a[],int n) //单调栈
 {
     seqstack<int> b(n);
     int c[n];
