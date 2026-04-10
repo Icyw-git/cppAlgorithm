@@ -4,102 +4,94 @@
 #include<iostream>
 using namespace std;
 
-template<class elemtype>
+template <class elemtype>
 class linklist
 {
     struct Node
     {
         elemtype data;
-        Node *next;
-        Node(elemtype data_=0)
+        Node* next;
+
+        Node(elemtype data_ = 0)
         {
-            data=data_;
-            next=nullptr;
+            data = data_;
+            next = nullptr;
         }
     };
-    Node *head;
+
+    Node* head;
     int length;
+
 public:
     linklist()
     {
-        head=new Node();
-        length=0;
+        head = new Node();
+        length = 0;
     }
 
 
     void show()
     {
-        Node *p=head;
-        while (p->next !=nullptr)
+        Node* p = head;
+        while (p->next != nullptr)
         {
-            p=p->next;
+            p = p->next;
 
-            cout<<p->data<<' ';
+            cout << p->data << ' ';
         }
     }
 
     void inserttail(elemtype val)
     {
-        Node *p=head;
-        while (p->next !=nullptr)
+        Node* p = head;
+        while (p->next != nullptr)
         {
-            p=p->next;
+            p = p->next;
         }
-        Node *tem=new Node(val);
-        p->next=tem;
+        Node* tem = new Node(val);
+        p->next = tem;
         length++;
     }
 
     int getlength()
     {
         return length;
-
     }
 
 
-
-    void rotate(linklist<int> &l,int k )
+    void rotate(linklist<int>& l, int k)
     {
-        Node *p=l.head;
-        Node *q=l.head;
+        Node* p = l.head;
+        Node* q = l.head;
 
-        while (p->next!=nullptr)
+        while (p->next != nullptr)
         {
-            p=p->next;
-
+            p = p->next;
         }
-        p->next=l.head->next;
-        for (int i=0;i<=l.getlength()-k;i++)
+        p->next = l.head->next;
+        for (int i = 0; i <= l.getlength() - k; i++)
         {
-            q=q->next;
-
+            q = q->next;
         }
 
-        for (int i=0;i<l.getlength();i++)
+        for (int i = 0; i < l.getlength(); i++)
         {
-            cout<<q->data<<" ";
-            q=q->next;
-
+            cout << q->data << " ";
+            q = q->next;
         }
-
-
-
     }
-
 };
 
 int main()
 {
     linklist<int> l;
-    int k ;
-    cin>>k;
-    for (int i=0;i<5;i++)
+    int k;
+    cin >> k;
+    for (int i = 0; i < 5; i++)
     {
         l.inserttail(i);
     }
     l.show();
-    cout<<endl;
-    l.rotate(l,k);
+    cout << endl;
+    l.rotate(l, k);
 }
-
-

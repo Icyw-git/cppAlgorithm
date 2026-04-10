@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+
 template <class elemtype>
 
 class linklist
@@ -7,92 +8,86 @@ class linklist
     struct Node
     {
         elemtype data;
-        Node *next;
-        Node(elemtype d=0)
+        Node* next;
+
+        Node(elemtype d = 0)
         {
-            data=d;
-            next=nullptr;
+            data = d;
+            next = nullptr;
         }
-
-
     };
-    Node *head;
-    int length=0;
-public:
 
+    Node* head;
+    int length = 0;
+
+public:
     linklist()
     {
-        head=new Node();
-        length=0;
+        head = new Node();
+        length = 0;
     }
 
     ~linklist()
     {
-        Node *p=head->next;
-        Node *q=head;
-        head->next=nullptr;
-        while (p !=nullptr)
+        Node* p = head->next;
+        Node* q = head;
+        head->next = nullptr;
+        while (p != nullptr)
         {
             delete q;
-            q=p;
-            p=p->next;
+            q = p;
+            p = p->next;
         }
-        length=0;
+        length = 0;
     }
 
     void inserttail(elemtype val)
     {
-        Node *p=head;
-        while (p->next !=nullptr)
+        Node* p = head;
+        while (p->next != nullptr)
         {
-            p=p->next;
+            p = p->next;
         }
-        Node *tem=new Node(val);
-        p->next=tem;
+        Node* tem = new Node(val);
+        p->next = tem;
         length++;
     }
 
     void show()
     {
-        Node *p=head;
-        cout<<p->data<<' ';
-        while (p->next !=nullptr)
+        Node* p = head;
+        cout << p->data << ' ';
+        while (p->next != nullptr)
         {
-            p=p->next;
-            cout<<p->data<<' ';
+            p = p->next;
+            cout << p->data << ' ';
         }
-        cout<<endl;
+        cout << endl;
     }
 
     void circle()
     {
-        Node *p=head;
-        while (p->next !=nullptr)
+        Node* p = head;
+        while (p->next != nullptr)
         {
-            p=p->next;
+            p = p->next;
         }
-        p->next=head;
-        Node *q=head;
+        p->next = head;
+        Node* q = head;
 
-        while (q !=q->next)
+        while (q != q->next)
         {
-            p=q->next;
-            q=p->next;
-            p->next=q->next;
-            cout<<q->data<<' ';
+            p = q->next;
+            q = p->next;
+            p->next = q->next;
+            cout << q->data << ' ';
             delete q;
-            q=p->next;
-
+            q = p->next;
         }
-        cout<<endl;
+        cout << endl;
 
-        cout<<q->data<<endl;
-
-
+        cout << q->data << endl;
     }
-
-
-
 };
 
 int main()
@@ -105,6 +100,4 @@ int main()
 
     l.show();
     l.circle();
-
-
 }
