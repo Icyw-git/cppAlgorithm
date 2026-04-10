@@ -36,27 +36,28 @@
 #include <sstream>
 #include <string>
 using namespace std;
+
 class Array
 {
 private:
-    int *p;       // 指向数组的指针
+    int* p; // 指向数组的指针
     int capacity; // 数组的容积
-    int size;     // 数组的元素个数
+    int size; // 数组的元素个数
 public:
-    Array(int size = 10);        // 构造函数
-    ~Array();                    // 析构函数
-    void push_back(int x);       // 末尾增加元素
-    void pop_back();             // 末尾删除元素
+    Array(int size = 10); // 构造函数
+    ~Array(); // 析构函数
+    void push_back(int x); // 末尾增加元素
+    void pop_back(); // 末尾删除元素
     void insert(int loc, int x); // 按位置插入元素
-    void erase(int val);         // 按值删除元素
-    int find(int x);             // 查找元素
+    void erase(int val); // 按值删除元素
+    int find(int x); // 查找元素
     void show();
-    Array result(const Array &a,const Array &b);
+    Array result(const Array& a, const Array& b);
 
 private:
     void expand(int new_capacity) // 自动扩容函数
     {
-        int *q;
+        int* q;
         q = new int[new_capacity];
         memcpy(q, p, size);
         p = q;
@@ -141,65 +142,61 @@ void Array::show()
 {
     for (int i = 0; i < size; i++)
     {
-        cout << p[i] <<" ";
+        cout << p[i] << " ";
     }
     // cout<<size<<endl;
 }
 
-Array Array::result(const Array &a,const Array &b)
+Array Array::result(const Array& a, const Array& b)
 {
     Array c(10);
-    int *pa=a.p;
-    int *pb=b.p;
-    int i=0;
-    int j=0;
+    int* pa = a.p;
+    int* pb = b.p;
+    int i = 0;
+    int j = 0;
 
 
-    while (i<a.size && j<b.size)
+    while (i < a.size && j < b.size)
     {
-        if (pa[i]==pb[j])
+        if (pa[i] == pb[j])
         {
-            int val=pa[i];
-            while (i<a.size && pa[i]==val) i++;
-            while (j<b.size && pb[j]==val) j++;
-
+            int val = pa[i];
+            while (i < a.size && pa[i] == val) i++;
+            while (j < b.size && pb[j] == val) j++;
         }
-        else if (pa[i]<pb[j])
+        else if (pa[i] < pb[j])
         {
-            int val=pa[i];
+            int val = pa[i];
             c.push_back(val);
-            while (i<a.size && pa[i]==val)
+            while (i < a.size && pa[i] == val)
             {
                 i++;
             }
         }
         else
         {
-            int val=pb[j];
+            int val = pb[j];
             c.push_back(val);
-            while (j<b.size && pb[j]==val)
+            while (j < b.size && pb[j] == val)
             {
                 j++;
             }
         }
-
-
     }
 
-    while (i<a.size)
+    while (i < a.size)
     {
-        int val =pa[i];
+        int val = pa[i];
         c.push_back(val);
-        while (i<a.size && pa[i]==val) i++;
+        while (i < a.size && pa[i] == val) i++;
     }
-    while (j<b.size)
+    while (j < b.size)
     {
-        int val =pb[j];
+        int val = pb[j];
         c.push_back(val);
-        while (j<b.size && pb[j]==val) j++;
+        while (j < b.size && pb[j] == val) j++;
     }
     return c;
-
 }
 
 void parse_line_to_array(const string& line, Array& arr)

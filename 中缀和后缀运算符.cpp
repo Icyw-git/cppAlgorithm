@@ -1,49 +1,50 @@
 #include<iostream>
 using namespace std;
 
-template<class elemtype>
-class stack{
+template <class elemtype>
+class stack
+{
 private:
-    elemtype *p;
+    elemtype* p;
     int maxsize;
     int top_p;
+
     void doublespace()
     {
-        elemtype *tem=p;
-        p=new elemtype[maxsize*2];
-        for (int i=0;i<maxsize;i++)
+        elemtype* tem = p;
+        p = new elemtype[maxsize * 2];
+        for (int i = 0; i < maxsize; i++)
         {
-            p[i]=tem[i];
+            p[i] = tem[i];
         }
-        maxsize*=2;
-        delete  []tem;
-
+        maxsize *= 2;
+        delete []tem;
     }
+
 public:
     stack(int size)
     {
-        maxsize=size;
+        maxsize = size;
 
-        p=new elemtype[maxsize];
-        top_p=-1;
-
+        p = new elemtype[maxsize];
+        top_p = -1;
     }
 
     ~stack()
     {
         delete []p;
-        p=nullptr;
-
+        p = nullptr;
     }
+
     void push(elemtype val)
     {
-        p[top_p+1]=val;
-        top_p+=1;
+        p[top_p + 1] = val;
+        top_p += 1;
     }
 
     elemtype pop()
     {
-        elemtype tem=p[top_p];
+        elemtype tem = p[top_p];
         top_p--;
         return tem;
     }
@@ -51,12 +52,11 @@ public:
     elemtype top()
     {
         return p[top_p];
-
     }
+
     bool isEmpty()
     {
-        return (top_p==-1);
-
+        return (top_p == -1);
     }
 };
 
@@ -64,131 +64,117 @@ void print(int num) //利用栈的性质消除递归
 
 {
     stack<int> a(10);
-    while (num !=0)
+    while (num != 0)
     {
-        a.push(num%10);
-        num/=10;
+        a.push(num % 10);
+        num /= 10;
     }
     while (!a.isEmpty())
     {
-        cout<<a.pop()<<' ';
+        cout << a.pop() << ' ';
     }
-
 }
 
 bool isoperator(char c)
 {
-    return c=='+'||c=='-'||c=='*'||c=='/';
+    return c == '+' || c == '-' || c == '*' || c == '/';
 }
 
-void transfer(char a[],int n)
+void transfer(char a[], int n)
 {
     stack<char> c(n);
-    for (int i=0;i<n;i++)
+    for (int i = 0; i < n; i++)
     {
         if (isdigit(a[i]))
         {
-            cout<<a[i]<<" ";
+            cout << a[i] << " ";
         }
-        else if (a[i]=='(')
+        else if (a[i] == '(')
         {
             c.push(a[i]);
         }
-        else if (a[i]==')')
+        else if (a[i] == ')')
         {
-            while (c.top()!='(' && !c.isEmpty())
+            while (c.top() != '(' && !c.isEmpty())
             {
-                cout<<c.pop()<<' ';
+                cout << c.pop() << ' ';
             }
-            cout<<c.pop()<<' ';
+            cout << c.pop() << ' ';
         }
         else if (isoperator(a[i]))
         {
-            if (a[i]=='+')
+            if (a[i] == '+')
             {
-                while (c.top()=='*'||c.top()=='/'||c.top()=='-')
+                while (c.top() == '*' || c.top() == '/' || c.top() == '-')
                 {
-                    cout<<c.pop()<<' ';
-
+                    cout << c.pop() << ' ';
                 }
                 c.push(a[i]);
             }
-            else if (a[i]=='-')
+            else if (a[i] == '-')
             {
-                while (c.top()=='*'||c.top()=='/'||c.top()=='+')
+                while (c.top() == '*' || c.top() == '/' || c.top() == '+')
                 {
-                    cout<<c.pop()<<' ';
-
+                    cout << c.pop() << ' ';
                 }
                 c.push(a[i]);
-
             }
             else
             {
-                while (c.top()=='*'||c.top()=='/')
+                while (c.top() == '*' || c.top() == '/')
                 {
-                    cout<<c.pop()<<' ';
-
+                    cout << c.pop() << ' ';
                 }
                 c.push(a[i]);
-
             }
-
         }
     }
     while (!c.isEmpty())
     {
-        cout<<c.pop()<<' ';
+        cout << c.pop() << ' ';
     }
 }
 
-int calculate(char a[],int n)
+int calculate(char a[], int n)
 {
     stack<int> b(n);
-    for (int i=0;i<n;i++)
+    for (int i = 0; i < n; i++)
     {
         if (isdigit(a[i]))
         {
-            b.push(a[i]-'0'); //将字符转换为整数
-
+            b.push(a[i] - '0'); //将字符转换为整数
         }
         else if (isoperator(a[i]))
         {
-            int right=b.pop();
-            int left=b.pop();
-            if (a[i]=='+')
+            int right = b.pop();
+            int left = b.pop();
+            if (a[i] == '+')
             {
-                b.push(left+right);
+                b.push(left + right);
             }
-            else if (a[i]=='-')
+            else if (a[i] == '-')
             {
-                b.push(left-right);
+                b.push(left - right);
             }
-            else if (a[i]=='*')
+            else if (a[i] == '*')
             {
-                b.push(left*right);
+                b.push(left * right);
             }
-            else if (a[i]=='/')
+            else if (a[i] == '/')
             {
-                b.push(left/right);
+                b.push(left / right);
             }
         }
-
-
-
-
     }
     return b.pop();
 }
 
 
-
 int main()
 {
     print(123456778);
-    char a[9]="1+2*3-4";
-    transfer(a,9);
-    char b[15]="1 2 3 * + 4 -";
-    cout<<calculate(b,15)<<endl;
-
+    char a[9] = "1+2*3-4";
+    transfer(a, 9);
+    char b[15] = "1 2 3 * + 4 -";
+    cout << calculate(b, 15) << endl;
 }

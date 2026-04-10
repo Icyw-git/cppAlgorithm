@@ -1,26 +1,27 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
+
 class Array
 {
 private:
-    int *p;       // 指向数组的指针
+    int* p; // 指向数组的指针
     int capacity; // 数组的容积
-    int size;     // 数组的元素个数
+    int size; // 数组的元素个数
 public:
-    Array(int size = 10);        // 构造函数
-    ~Array();                    // 析构函数
-    void push_back(int x);       // 末尾增加元素
-    void pop_back();             // 末尾删除元素
+    Array(int size = 10); // 构造函数
+    ~Array(); // 析构函数
+    void push_back(int x); // 末尾增加元素
+    void pop_back(); // 末尾删除元素
     void insert(int loc, int x); // 按位置插入元素
-    void erase(int val);         // 按值删除元素
-    int find(int x);             // 查找元素
+    void erase(int val); // 按值删除元素
+    int find(int x); // 查找元素
     void show();
 
 private:
     void expand(int new_capacity) // 自动扩容函数
     {
-        int *q;
+        int* q;
         q = new int[new_capacity];
         memcpy(q, p, size);
         p = q;
@@ -109,10 +110,10 @@ void Array::show()
     }
 }
 
-void reverse(int *arr, int size)
+void reverse(int* arr, int size)
 {
-    int *p = arr;
-    int *q = arr + size - 1; // 双指针，将偶数移至左侧，奇数移至右侧
+    int* p = arr;
+    int* q = arr + size - 1; // 双指针，将偶数移至左侧，奇数移至右侧
 
     while (p < q)
     {
@@ -143,10 +144,10 @@ void reverse(int *arr, int size)
     }
 }
 
-int count(int *arr, int size, int val) // 删除数组中值等于val的数，并计数
+int count(int* arr, int size, int val) // 删除数组中值等于val的数，并计数
 {
-    int *p = arr;
-    int *q = arr; // 快指针，检测数值
+    int* p = arr;
+    int* q = arr; // 快指针，检测数值
     while (q <= arr + size - 1)
     {
         if (*q == val)
