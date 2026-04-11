@@ -160,7 +160,7 @@ int main()
     cin >> M;
     linkqueue<int> q;
     stack s(K);
-    int count=0;
+    int count=0; //总的移动次数
 
     for (int i = 0; i < M; i++)
     {
@@ -171,9 +171,9 @@ int main()
             int x;
             cin>>x;
             q.enqueue(x);
-            while (!s.isFull() && !q.isEmpty())
+            while (!s.isFull() && !q.isEmpty()) //当货架不满且等待队列不为空的时候 让等待的货物进入货架
             {
-                s.push(q.dequeue());
+                s.push(q.dequeue()); //更新等待队列
             }
 
         }
@@ -182,7 +182,7 @@ int main()
             int x;
             cin>>x;
             stack tem(K);
-            int moved = 0;
+            int moved = 0; //该轮的移动次数
             while (!s.isEmpty() && s.top() != x)
             {
                 tem.push(s.pop());
@@ -195,19 +195,19 @@ int main()
                 {
                     s.push(tem.pop());
                 }
-                count += 2 * moved;
+                count += 2 * moved; //如果找到目标货物就加在总的移动次数上 乘2是因为每次移动都要把货物拿出来再放回去
             }
             else
             {
                 while (!tem.isEmpty())
                 {
-                    s.push(tem.pop());
+                    s.push(tem.pop()); //直接放回去 不需要加移动次数
                 }
             }
 
             while(!s.isFull() && !q.isEmpty())
             {
-                s.push(q.dequeue());
+                s.push(q.dequeue()); //更新等待队列
             }
 
 
@@ -226,7 +226,7 @@ int main()
         {
             tem.push(s.pop());
         }
-        while (!tem.isEmpty())
+        while (!tem.isEmpty()) //把货架上的货物按照从底到顶的顺序输出
         {
             cout<<tem.pop()<<' ';
         }

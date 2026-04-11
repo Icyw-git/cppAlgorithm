@@ -102,7 +102,7 @@ void api(int id, char c, int n, int a[])
     int target = id;
     for (int i = 0; i < n; i++)
     {
-        if (b.gethead() < i - 9 && !b.isEmpty()) //如果队头元素小于i-9说明队头元素已经不在窗口内了 需要出队
+        if (b.gethead() < i - 9 && !b.isEmpty()) //如果队头元素小于i-9说明队头元素已经不在窗口内了 需要出队 这里是实现滑动窗口的关键 因为窗口大小是10 所以当i-9时窗口内的元素是从i-9到i的 也就是窗口内的元素个数是10 如果队头元素小于i-9说明队头元素已经不在窗口内了 需要出队
         {
             b.dequeue();
         }

@@ -97,7 +97,7 @@ void erase(string s[], int n)
         seqstack<char> st;
         for (char c : s[i])
         {
-            if (st.empty() || st.top() != c)
+            if (st.empty() || st.top() != c) //如果栈为空或者栈顶元素和当前字符不相等,说明当前字符不能和栈顶元素消除,需要入栈
             {
                 st.push(c);
             }
