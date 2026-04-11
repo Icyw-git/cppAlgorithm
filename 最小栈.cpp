@@ -88,7 +88,7 @@ public:
 void Minstack::push(int x)
 {
     data.push(x);
-    if (min.isEmpty() || x<=min.top())
+    if (min.isEmpty() || x<=min.top()) //如果当前元素小于等于最小值栈顶元素 就把当前元素入最小值栈 否则把最小值栈顶元素入最小值栈 这样保证了最小值栈的栈顶永远是当前data栈的最小值
     {
         min.push(x);
 
@@ -100,7 +100,7 @@ void Minstack::push(int x)
 
 }
 
-int Minstack::pop()
+int Minstack::pop() //弹出data栈顶元素 同时弹出最小值栈顶元素 这样保证了最小值栈的栈顶永远是当前data栈的最小值
 {
     int tem=data.pop();
     min.pop();
