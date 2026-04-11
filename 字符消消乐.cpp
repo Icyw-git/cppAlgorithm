@@ -1,19 +1,18 @@
 //
 // Created by icyw on 2026/4/10.
 //
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 using namespace std;
-
 
 template <class elemType>
 class stack
 {
 public:
-    virtual void push(elemType val) =0;
-    virtual elemType pop() =0;
-    virtual elemType top() =0;
-    virtual bool empty() =0;
+    virtual void push(elemType val) = 0;
+    virtual elemType pop() = 0;
+    virtual elemType top() = 0;
+    virtual bool empty() = 0;
 
     virtual ~stack()
     {
@@ -24,20 +23,20 @@ template <class elemType>
 class seqstack : public stack<elemType>
 {
 private:
-    elemType* data;
+    elemType *data;
     int top_p;
     int maxsize;
 
     void doublespace()
     {
-        elemType* tem = data;
+        elemType *tem = data;
         data = new elemType[2 * maxsize];
         for (int i = 0; i < maxsize; i++)
         {
             data[i] = tem[i];
         }
         maxsize *= 2;
-        delete []tem;
+        delete[] tem;
     }
 
 public:
@@ -55,7 +54,7 @@ public:
 
     ~seqstack()
     {
-        delete []data;
+        delete[] data;
         data = nullptr;
     }
 };
@@ -91,52 +90,75 @@ bool seqstack<elemType>::empty()
     return (top_p == -1);
 }
 
-
-void erase(string s[],int n)
+void erase(string s[], int n)
 {
     for (int i = 0; i < n; i++)
     {
         seqstack<char> st;
-        for (char c:s[i])
+        for (char c : s[i])
         {
-            if (st.empty()|| st.top()!=c)
+            if (st.empty() || st.top() != c)
             {
                 st.push(c);
             }
             else
             {
                 st.pop();
-
-
-
             }
         }
+        string result = "";
         if (st.empty())
         {
-            cout<<"EMPTY"<<endl;
+            cout << result << endl;
         }
         else
         {
-            string result="";
+
             while (!st.empty())
             {
-                result=st.top()+result;
+                result = st.top() + result;
                 st.pop();
-
             }
-            cout<<result<<endl;
+            cout << result << endl;
         }
+    }
+}
+
+void erase1(string s)
+{
+    seqstack<char> st;
+    for (char c : s)
+    {
+        if (st.empty() || st.top() != c)
+        {
+            st.push(c);
+        }
+        else
+        {
+            st.pop();
+        }
+    }
+    string result = "";
+    if (st.empty())
+    {
+        cout << result << endl;
+    }
+    else
+    {
+
+        while (!st.empty())
+        {
+            result = st.top() + result;
+            st.pop();
+        }
+        cout << result << endl;
     }
 }
 
 int main()
 {
-    int n;
-    cin>>n;
-    string s[n];
-    for (int i = 0; i < n; i++)
-    {
-        cin>>s[i];
-    }
-    erase(s,n);
+
+    string s;
+    cin >> s;
+    erase1(s);
 }
