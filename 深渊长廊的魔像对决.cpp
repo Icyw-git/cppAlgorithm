@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
 class stack
@@ -7,6 +7,7 @@ private:
     int* data;
     int top_p;
     int maxsize;
+    int length;
 
     void doublespace()
     {
@@ -26,6 +27,7 @@ public:
         data = new int[size];
         top_p = -1;
         maxsize = size;
+        length = 0;
     }
 
     ~stack()
@@ -41,16 +43,18 @@ public:
         }
         top_p = top_p + 1;
         data[top_p] = x;
+        length++;
     }
 
     int pop()
     {
         if (top_p == -1)
         {
-            return -1;
+            return 0;
         }
         int tem = data[top_p];
         top_p--;
+        length--;
         return tem;
     }
 
@@ -58,7 +62,7 @@ public:
     {
         if (top_p == -1)
         {
-            return -1;
+            return 0;
         }
         return data[top_p];
     }
@@ -67,52 +71,89 @@ public:
     {
         return top_p == -1;
     }
+
+    int getlength()
+    {
+        return length;
+    }
+
+    int get(int index)
+    {
+        if (index >= 0 && index <= top_p)
+        {
+            return data[index];
+        }
+        return 0;
+    }
 };
 
 void crash(int a[], int n)
 {
     stack s(n);
-    int i = 0;
-    while (i < n)
+
+    for (int i = 0; i < n; i++)
     {
-        if (s.isEmpty() || s.top() * a[i] > 0 || (s.top() < 0 && a[i] > 0))
+        int current = a[i];
+
+        while (true)
         {
-            s.push(a[i]);
-            i++;
-        }
-        else
-        {
-            if (s.top() > abs(a[i]))
+            if (s.isEmpty())
             {
-                i++;
+                s.push(current);
+                break;
             }
-            else if (s.top() < abs(a[i]))
+
+            int top = s.top();
+
+            if ((top > 0 && current > 0) ||
+                (top < 0 && current < 0) ||
+                (top < 0 && current > 0))
             {
-                s.pop();
-                s.push(a[i]);
-                i++;
+                s.push(current);
+                break;
             }
             else
             {
-                s.pop();
-                i++;
+                int top_value = top;
+                int current_value = -current;
+
+                if (top_value > current_value)
+                {
+                    break;
+                }
+                else if (top_value < current_value)
+                {
+                    s.pop();
+                }
+                else
+                {
+                    s.pop();
+                    break;
+                }
             }
         }
     }
+
     if (s.isEmpty())
     {
-        cout << "EMPTY" << endl;
+        cout << "Empty" << endl;
     }
     else
     {
-        stack tem(n);
+        stack temp(s.getlength());
+
         while (!s.isEmpty())
         {
-            tem.push(s.pop());
+            temp.push(s.pop());
         }
-        while (!tem.isEmpty())
+
+        while (!temp.isEmpty())
         {
-            cout << tem.pop() << ' ';
+            cout << temp.pop();
+            if (!temp.isEmpty())
+            {
+                cout << " ";
+            }
         }
         cout << endl;
     }
