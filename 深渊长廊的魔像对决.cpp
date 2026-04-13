@@ -91,7 +91,7 @@ void crash(int a[], int n)
 {
     stack s(n);
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i++) //将for循环包裹在while循环外面 这样就能保证每个元素都能被处理到
     {
         int current = a[i];
 
