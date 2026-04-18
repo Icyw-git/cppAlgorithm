@@ -187,7 +187,7 @@ public:
 
     }
 
-    int lchild(int x,int flag)
+    int lchild(int x,int flag) //lchild函数的功能是返回值为x的节点的左子节点的值。如果找到了值为x的节点，并且该节点有左子树，则返回左子树根节点的data值；如果找到了值为x的节点，但该节点没有左子树，或者未找到值为x的节点，则返回flag表示没有左子节点。
     {
         node *tem;
         tem=find(x,root);
