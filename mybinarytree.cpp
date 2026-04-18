@@ -102,7 +102,7 @@ public:
             }
         }
     }
-    void createtree(int flag)
+    void createtree(int flag) //用flag表示空节点 例如输入-1表示该节点为空 构建思路是先输入根节点的值，然后依次输入每个节点的左右子树的值，如果某个子树为空则输入flag，利用队列来辅助构建二叉树。具体步骤如下：
     {
 
         queue<node *> q;
@@ -132,7 +132,7 @@ public:
         }
     }
 
-    node* find(int x,node *t)
+    node* find(int x,node *t) //find函数的思路是递归地在二叉树中查找值为x的节点。首先检查当前节点t是否为nullptr，如果是，则返回nullptr表示未找到。如果当前节点的data等于x，则返回当前节点t表示找到了目标节点。否则，先在左子树中递归调用find函数，如果在左子树中找到了目标节点，则返回该节点；如果在左子树中未找到，则继续在右子树中递归调用find函数，并返回结果。这样就可以遍历整个二叉树来查找目标节点。
     {
         node *tem;
         if (t==nullptr)
@@ -157,7 +157,7 @@ public:
         }
     }
 
-    void delleft(int x)
+    void delleft(int x) //delleft函数的功能是删除值为x的节点的左子树。首先调用find函数在二叉树中查找值为x的节点，如果找到了该节点，则调用clear函数来释放该节点的左子树的内存，并将该节点的left指针设置为nullptr，表示该节点不再有左子树。如果未找到值为x的节点，则直接返回，不进行任何操作。
     {
         node *tem=find(x,root);
         if (tem)
