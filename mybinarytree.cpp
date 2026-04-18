@@ -58,8 +58,8 @@ public:
         }
 
         cout << t->data << " "; // 访问根节点
-        preOrder(t->left);
-        preOrder(t->right);
+        preOrder(t->left);  // 递归访问左子树
+        preOrder(t->right); // 递归访问右子树
     }
     void inOrder(node *t)
     {
@@ -83,22 +83,22 @@ public:
         cout << t->data << ' ';
     }
 
-    void levelOrder(node *t)
+    void levelOrder(node *t) //层序遍历，意思是按照树的层次从上到下、从左到右依次访问每个节点。实现层序遍历的一种常用方法是使用队列来辅助遍历过程。具体步骤如下：
     {
         queue<node *> q;
         q.push(t);
         while (!q.empty())
         {
-            node *tem = q.front();
+            node *tem = q.front(); //获取队列的第一个元素，即当前访问的节点
             q.pop();
             cout << tem->data << ' ';
             if (tem->left)
             {
-                q.push(tem->left);
+                q.push(tem->left); //如果当前节点的左子树不为空，则将左子树的根节点加入队列，以便后续访问
             }
             if (tem->right)
             {
-                q.push(tem->right);
+                q.push(tem->right); //如果当前节点的右子树不为空，则将右子树的根节点加入队列，以便后续访问
             }
         }
     }
