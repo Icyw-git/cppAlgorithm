@@ -131,4 +131,107 @@ public:
             }
         }
     }
+
+    node* find(int x,node *t)
+    {
+        node *tem;
+        if (t==nullptr)
+        {
+            return nullptr;
+        }
+
+        if (t->data == x)
+        {
+            return t;
+
+        }
+        tem = find(x, t->left);
+        if (tem)
+        {
+            return tem;
+        }else
+        {
+            tem = find(x, t->right);
+            return tem;
+
+        }
+    }
+
+    void delleft(int x)
+    {
+        node *tem=find(x,root);
+        if (tem)
+        {
+            clear(tem->left);
+
+        }
+        else
+        {
+            return ;
+        }
+
+    }
+
+    void delright(int x)
+    {
+        node *tem=find(x,root);
+        if (tem)
+        {
+            clear(tem->right);
+
+        }
+        else
+        {
+            return ;
+        }
+
+    }
+
+    int lchild(int x,int flag)
+    {
+        node *tem;
+        tem=find(x,root);
+        if (tem==nullptr||tem->left==nullptr)
+        {
+            return flag;
+
+        }
+        return tem->left->data;
+
+    }
+
+    int rchild(int x,int flag)
+    {
+        node *tem=find(x,root);
+        if (tem==nullptr||tem->right==nullptr)
+        {
+            return flag;
+        }
+        return tem->right->data;
+
+    }
+
+    void printtree(binarytree &t,int flag)
+    {
+        queue<int> q;
+        q.push(t.root->data);
+        cout<<endl;
+        while (!q.empty())
+        {
+            int data = q.front();
+            q.pop();
+            int l=t.lchild(data,flag);
+            int r=t.rchild(data,flag);
+            cout<<data<<' '<<l<<' '<<r<<endl;
+            if (l!=-1)
+            {
+                q.push(l);
+            }
+            if (r!=-1)
+            {
+                q.push(r);
+            }
+        }
+
+    }
 };
