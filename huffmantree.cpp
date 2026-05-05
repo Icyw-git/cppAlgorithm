@@ -31,7 +31,7 @@ public:
     }
 };
 
-hftree::hftree(const char *v, const int *w, int size)
+hftree::hftree(const char *v, const int *w, int size) //size表示所有的节点数量
 {
     const int max_int = 32767;
     int min1, min2;
@@ -39,7 +39,7 @@ hftree::hftree(const char *v, const int *w, int size)
 
     length = 2 * size;
     elem = new node[length];
-    for (int i = size; i < length; i++)
+    for (int i = size; i < length; i++) //将所有的节点放在后半部分，初始化树
     {
         elem[i].weight = w[i - size];
         elem[i].data = v[i - size];
