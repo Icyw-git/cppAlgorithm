@@ -2,34 +2,33 @@
 // Created by icyw on 2026/4/28.
 //
 
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-
-//最小化堆
+// 最小化堆
 
 class priorityqueue
 {
-    private:
+private:
     int currentSize;
     int *array;
     int maxSize;
 
     void doublespace()
     {
-        int *tem=array;
-        array=new int[2*maxSize];
-        for (int i=0;i<maxSize;i++)
+        int *tem = array;
+        array = new int[2 * maxSize];
+        for (int i = 0; i < maxSize; i++)
         {
-            array[i]=tem[i];
+            array[i] = tem[i];
         }
-        maxSize*=2;
-        delete []tem;
+        maxSize *= 2;
+        delete[] tem;
     }
 
     void buildHeap()
     {
-        for (int i=currentSize/2;i>0;i--)
+        for (int i = currentSize / 2; i > 0; i--) // 建树操作，从最后一个非叶子节点开始，逐层向下调整，最后可以调整为一个最小化堆
         {
             percolateDown(i);
         }
@@ -38,43 +37,40 @@ class priorityqueue
     void percolateDown(int hole)
     {
         int child;
-        int temp=array[hole];
-        for (;hole*2<=currentSize;hole=child)
+        int temp = array[hole];
+        for (; hole * 2 <= currentSize; hole = child)
         {
-            child=hole*2;
-            if (child!=currentSize&&array[child]>array[child+1])
+            child = hole * 2;
+            if (child != currentSize && array[child] > array[child + 1])
             {
                 child++;
             }
-            if (temp>array[child])
+            if (temp > array[child])
             {
-                array[hole]=array[child];
+                array[hole] = array[child];
             }
             else
             {
                 break;
             }
-
         }
-            array[hole]=temp;
-
+        array[hole] = temp;
     }
 
 public:
-    priorityqueue(int capacity=10)
+    priorityqueue(int capacity = 10)
     {
-        array=new int[capacity];
-        maxSize=capacity;
-        currentSize=0;
-
+        array = new int[capacity];
+        maxSize = capacity;
+        currentSize = 0;
     }
     ~priorityqueue()
     {
-        delete []array;
+        delete[] array;
     }
     bool isEmpty()
     {
-        return currentSize==0;
+        return currentSize == 0;
     }
 
     int getHead()
@@ -84,15 +80,16 @@ public:
 
     void enqueue(int x)
     {
-        if (currentSize==maxSize-1)
+        if (currentSize == maxSize - 1)
         {
             doublespace();
         }
-        int hole=currentSize+1;
-        for (;hole>1&&x<array[hole/2];hole/=2)
-        {            array[hole]=array[hole/2];
+        int hole = currentSize + 1;
+        for (; hole > 1 && x < array[hole / 2]; hole /= 2)
+        {
+            array[hole] = array[hole / 2];
         }
-        array[hole]=x;
+        array[hole] = x;
         currentSize++;
     }
 
@@ -102,12 +99,10 @@ public:
         {
             return -1;
         }
-        int temp=array[1];
-        array[1]=array[currentSize];
+        int temp = array[1];
+        array[1] = array[currentSize];
         currentSize--;
         percolateDown(1);
         return temp;
     }
-
-
 };
