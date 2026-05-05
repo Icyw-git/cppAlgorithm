@@ -117,7 +117,7 @@ double simulate(int n)
         if (arrivetime > currenttime) //无需等待，服务台空闲，直接服务
         {
             currenttime = arrivetime;
-            double servicetime = rand() % 30; //piggy，生成随机服务时间
+            double servicetime = rand() % 30; //生成随机服务时间
             cout << "无需等待，服务时间为" << servicetime << "分钟" << endl;
             currenttime += servicetime; //更新当前时间为服务结束时间
         }
